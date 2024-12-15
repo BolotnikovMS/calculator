@@ -50,7 +50,7 @@ const App = () => {
   const calculation = () => {
     setBias(0)
 
-    if (!currentCoefficient || !quanta) return
+    if (!quanta) return null
 
     switch (typeCalculation) {
       case 'amperage':
