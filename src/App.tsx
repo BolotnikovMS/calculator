@@ -57,6 +57,7 @@ const App = () => {
 
   return (
     <div className='flex flex-wrap justify-center gap-6'>
+      <Error errorCurrentCoefficient={errors.errorCurrentCoefficient} errorQuanta={errors.errorQuanta} />
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col items-center gap-4'>
           <Input className='max-w-[300px]' onChange={(e) => changeCurrentCoefficient(e)} value={currentCoefficient} placeholder='Коэффициент по току' aria-autocomplete='none' />
@@ -85,7 +86,6 @@ const App = () => {
         </div>
         <Results coefficient={coefficient} bias={bias} />
       </div>
-      <Error errorCurrentCoefficient={errors.errorCurrentCoefficient} errorQuanta={errors.errorQuanta} />
       <InformationQuanta />
     </div>
   )
