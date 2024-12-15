@@ -1,6 +1,5 @@
 import { Calculator } from 'lucide-react'
 import { ChangeEvent, useState } from 'react'
-import './App.css'
 import Error from './components/ordinary/error'
 import InformationQuanta from './components/simple/informationQuanta'
 import Results from './components/simple/results'
