@@ -5,11 +5,14 @@ import InformationQuanta from './components/simple/informationQuanta'
 import Results from './components/simple/results'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
+import { Label } from './components/ui/label'
+import { RadioGroup, RadioGroupItem } from './components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
 import { calculate } from './core/utils/calculate'
 import { typeCalculationData } from './data/typeCalculationData'
 import { voltageClassessData } from './data/voltageClassessData'
 import { IError } from './interfaces/error.interface'
+import { quantitiesData } from './data/quantitiesData'
 
 const App = () => {
   const [currentCoefficient, setCurrentCoefficient] = useState<string>('')
@@ -80,6 +83,16 @@ const App = () => {
               {typeCalculationData.map(item => (<SelectItem key={item.value} value={item.value}>{item.lable}</SelectItem>))}
             </SelectContent>
           </Select>
+          {(typeCalculation === 'power' || typeCalculation === 'powerReverse') && (
+            <RadioGroup defaultValue="kilowatts">
+              {quantitiesData.map(item => (
+                <div key={item.value} className="flex items-center space-x-2">
+                  <RadioGroupItem value={item.value} id={item.value} />
+                  <Label htmlFor={item.value}>{item.name}</Label>
+                </div>
+              ))}
+            </RadioGroup>
+          )}
           <Button variant="outline" size="icon" className='w-[300px] hover:bg-gray-300/85 transition ease-out duration-500' onClick={calculation} disabled={!quanta}>
             <Calculator />
           </Button>
