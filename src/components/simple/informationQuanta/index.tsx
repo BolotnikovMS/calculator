@@ -9,6 +9,7 @@ const InformationQuanta: FC = () => {
         <TabsTrigger value="aris">Aris</TabsTrigger>
         <TabsTrigger value="iset">Исеть</TabsTrigger>
         <TabsTrigger value="granit">Гранит</TabsTrigger>
+        <TabsTrigger value="telecontrol">Телеконтроль</TabsTrigger>
       </TabsList>
       <TabsContent value="aris">
         <Card>
@@ -42,7 +43,20 @@ const InformationQuanta: FC = () => {
           <CardContent className="p-3">
             <div>
               <p>Инфа Гранит. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur enim unde repellendus. Iusto, non exercitationem voluptas nobis aperiam, culpa earum fugiat quo laboriosam delectus voluptates nemo error pariatur molestias! Quis.
-                Autem minima nisi ipsa officiis perspiciatis maiores et consequuntur possimus? Pariatur mollitia voluptate natus, molestiae eos saepe accusamus odio dolore voluptatem possimus qui, quis corrupti accusantium quasi quaerat, voluptatum repellat.</p>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+      <TabsContent value="telecontrol">
+        <Card>
+          <CardHeader className='p-3'>
+            <CardTitle>Кванты Телеконтроля</CardTitle>
+          </CardHeader>
+          <CardContent className="p-3">
+            <div>
+              <p>Инфа Гранит. Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur enim unde repellendus. Iusto, non exercitationem voluptas nobis aperiam, culpa earum fugiat quo laboriosam delectus voluptates nemo error pariatur molestias! Quis.
+              </p>
             </div>
           </CardContent>
         </Card>
