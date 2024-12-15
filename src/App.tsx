@@ -6,6 +6,7 @@ import Results from './components/simple/results'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
+import { calculate } from './core/utils/calculate'
 import { typeCalculationData } from './data/typeCalculationData'
 import { voltageClassessData } from './data/voltageClassessData'
 import { IError } from './interfaces/error.interface'
@@ -48,36 +49,10 @@ const App = () => {
   const changeVoltage = (value: string) => setVoltage(+value)
   const changeTypeCalculation = (value: string) => setTypeCalculation(value)
   const calculation = () => {
-    setBias(0)
+    const result = calculate(typeCalculation, +quanta, voltage, +currentCoefficient)
 
-    if (!quanta) return null
-
-    switch (typeCalculation) {
-      case 'amperage':
-        setCoefficient(+currentCoefficient / +quanta)
-
-        break
-      case 'voltage1':
-        setCoefficient(voltage * 1.25 / +quanta)
-
-        break
-      case 'voltage2':
-        setCoefficient((voltage * 1.25) / (+quanta * 2.5))
-        setBias(voltage * 0.75)
-
-        break
-      case 'power':
-        setCoefficient((+currentCoefficient * voltage * Math.sqrt(3)) / +quanta)
-
-        break
-      case 'powerReverse':
-        setCoefficient(((+currentCoefficient * voltage * Math.sqrt(3)) / +quanta) * 2)
-        setBias(-(+currentCoefficient * voltage * Math.sqrt(3)))
-
-        break
-      default:
-        break
-    }
+    setCoefficient(result?.coefficient ?? 0)
+    setBias(result?.bias ?? 0)
   }
 
   return (
@@ -104,14 +79,14 @@ const App = () => {
               {typeCalculationData.map(item => (<SelectItem key={item.value} value={item.value}>{item.lable}</SelectItem>))}
             </SelectContent>
           </Select>
-          <Button variant="outline" size="icon" className='w-[300px] hover:bg-gray-300/85 transition ease-out duration-500' onClick={calculation}>
+          <Button variant="outline" size="icon" className='w-[300px] hover:bg-gray-300/85 transition ease-out duration-500' onClick={calculation} disabled={!quanta}>
             <Calculator />
           </Button>
         </div>
         <Results coefficient={coefficient} bias={bias} />
       </div>
-      <InformationQuanta />
       <Error errorCurrentCoefficient={errors.errorCurrentCoefficient} errorQuanta={errors.errorQuanta} />
+      <InformationQuanta />
     </div>
   )
 }
