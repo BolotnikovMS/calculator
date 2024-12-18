@@ -1,6 +1,8 @@
 import { TConvertValue } from "./convertValue.type"
 
 export const convertValue: TConvertValue = (value, quantity) => {
+  if (typeof value !== 'number') return 0
+
   switch (quantity) {
     case 'watts':
       return value
