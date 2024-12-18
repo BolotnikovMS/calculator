@@ -5,4 +5,4 @@ export const voltageClassessData = [
   { value: '110', lable: '110 кВ' },
   { value: '220', lable: '220 кВ' },
   { value: '500', lable: '500 кВ' },
-]
+] as const
