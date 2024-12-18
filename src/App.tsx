@@ -8,11 +8,11 @@ import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
 import { RadioGroup, RadioGroupItem } from './components/ui/radio-group'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
-import { calculate } from './core/utils/calculate'
+import { quantitiesData } from './data/quantitiesData'
 import { typeCalculationData } from './data/typeCalculationData'
 import { voltageClassessData } from './data/voltageClassessData'
 import { IError } from './interfaces/error.interface'
-import { quantitiesData } from './data/quantitiesData'
+import { calculate } from './core/utils/calculate/calculate'
 
 const App = () => {
   const [currentCoefficient, setCurrentCoefficient] = useState<string>('')
@@ -21,6 +21,7 @@ const App = () => {
   const [typeCalculation, setTypeCalculation] = useState<string>('amperage')
   const [coefficient, setCoefficient] = useState<number>(0)
   const [bias, setBias] = useState<number>(0)
+  const [quantity, setQuantity] = useState<string>('kilowatts')
   const [errors, setErrors] = useState<IError>({ errorCurrentCoefficient: '', errorQuanta: '' })
 
   const changeCurrentCoefficient = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +52,9 @@ const App = () => {
   }
   const changeVoltage = (value: string) => setVoltage(+value)
   const changeTypeCalculation = (value: string) => setTypeCalculation(value)
+  const changeQuantity = (value: string) => setQuantity(value)
   const calculation = () => {
-    const result = calculate(typeCalculation, +quanta, voltage, +currentCoefficient)
+    const result = calculate(typeCalculation, +quanta, voltage, +currentCoefficient, quantity)
 
     setCoefficient(result?.coefficient ?? 0)
     setBias(result?.bias ?? 0)
@@ -63,8 +65,8 @@ const App = () => {
       <Error errorCurrentCoefficient={errors.errorCurrentCoefficient} errorQuanta={errors.errorQuanta} />
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col items-center gap-4'>
-          <Input className='max-w-[300px]' onChange={(e) => changeCurrentCoefficient(e)} value={currentCoefficient} placeholder='Коэффициент по току' aria-autocomplete='none' />
-          <Input className='max-w-[300px]' onChange={(e) => changeQuanta(e)} value={quanta} placeholder='Кванты' aria-autocomplete='none' />
+          <Input className='max-w-[300px]' type='text' onChange={(e) => changeCurrentCoefficient(e)} value={currentCoefficient} placeholder='Коэффициент по току' aria-autocomplete='none' />
+          <Input className='max-w-[300px]' type='text' onChange={(e) => changeQuanta(e)} value={quanta} placeholder='Кванты' aria-autocomplete='none' />
           <Select onValueChange={changeVoltage} defaultValue={voltage.toString()}>
             <SelectTrigger className='max-w-[300px]' >
               <SelectValue placeholder="Напряжение" />
@@ -84,7 +86,7 @@ const App = () => {
             </SelectContent>
           </Select>
           {(typeCalculation === 'power' || typeCalculation === 'powerReverse') && (
-            <RadioGroup defaultValue="kilowatts">
+            <RadioGroup defaultValue={quantity} onValueChange={changeQuantity}>
               {quantitiesData.map(item => (
                 <div key={item.value} className="flex items-center space-x-2">
                   <RadioGroupItem value={item.value} id={item.value} />
@@ -93,7 +95,7 @@ const App = () => {
               ))}
             </RadioGroup>
           )}
-          <Button variant="outline" size="icon" className='w-[300px] hover:bg-gray-300/85 transition ease-out duration-500' onClick={calculation} disabled={!quanta}>
+          <Button variant="outline" size="icon" type='button' className={`w-[300px] hover:bg-gray-300/85 transition ease-out duration-500 ${!quanta && 'bg-gray-500/90'}`} onClick={calculation} disabled={!quanta}>
             <Calculator />
           </Button>
         </div>
