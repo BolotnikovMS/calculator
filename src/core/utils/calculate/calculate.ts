@@ -40,7 +40,8 @@ export const calculate: TCalculate = (typeCalculation, quanta, voltage, currentC
     }
     default: {
       console.error("Ошибка при расчете коэффициента и сдвига!")
-      break
+
+      return null
     }
   }
 
