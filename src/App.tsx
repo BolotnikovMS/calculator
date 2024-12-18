@@ -13,15 +13,18 @@ import { quantitiesData } from './data/quantitiesData'
 import { typeCalculationData } from './data/typeCalculationData'
 import { voltageClassessData } from './data/voltageClassessData'
 import { IError } from './interfaces/error.interface'
+import { TQuantity } from './types/quantity.type'
+import { TTypeCalculation } from './types/typeCalculation.type'
+import { TVoltage } from './types/voltage.type'
 
 const App = () => {
   const [currentCoefficient, setCurrentCoefficient] = useState<string>('')
   const [quanta, setQuanta] = useState<string>('')
-  const [voltage, setVoltage] = useState<number>(6)
-  const [typeCalculation, setTypeCalculation] = useState<string>('amperage')
+  const [voltage, setVoltage] = useState<TVoltage>('6')
+  const [typeCalculation, setTypeCalculation] = useState<TTypeCalculation>('amperage')
   const [coefficient, setCoefficient] = useState<number>(0)
   const [bias, setBias] = useState<number>(0)
-  const [quantity, setQuantity] = useState<string>('kilowatts')
+  const [quantity, setQuantity] = useState<TQuantity>('kilowatts')
   const [errors, setErrors] = useState<IError>({ errorCurrentCoefficient: '', errorQuanta: '' })
 
   const changeCurrentCoefficient = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,11 +53,11 @@ const App = () => {
     setErrors({ ...errors, errorQuanta: '' })
     return setQuanta(value)
   }
-  const changeVoltage = (value: string) => setVoltage(+value)
-  const changeTypeCalculation = (value: string) => setTypeCalculation(value)
-  const changeQuantity = (value: string) => setQuantity(value)
+  const changeVoltage = (value: TVoltage) => setVoltage(value)
+  const changeTypeCalculation = (value: TTypeCalculation) => setTypeCalculation(value)
+  const changeQuantity = (value: TQuantity) => setQuantity(value)
   const calculation = () => {
-    const result = calculate(typeCalculation, +quanta, voltage, +currentCoefficient, quantity)
+    const result = calculate(typeCalculation, +quanta, +voltage, +currentCoefficient, quantity)
 
     setCoefficient(result?.coefficient ?? 0)
     setBias(result?.bias ?? 0)
