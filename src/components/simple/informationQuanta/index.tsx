@@ -8,11 +8,11 @@ const InformationQuanta: FC = () => {
     <Tabs defaultValue="aris" className="w-[400px]">
       <TabsList>
         {quantaData.map(item => (
-          <TabsTrigger value={item.device}>{item.name}</TabsTrigger>
+          <TabsTrigger key={item.device} value={item.device}>{item.name}</TabsTrigger>
         ))}
       </TabsList>
       {quantaData.map(item => (
-        <TabsContent value={item.device}>
+        <TabsContent key={item.device} value={item.device}>
           <Card>
             <CardHeader className='p-3'>
               <CardTitle>Информаци о {item.name}</CardTitle>
