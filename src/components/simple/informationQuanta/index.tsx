@@ -15,7 +15,7 @@ const InformationQuanta: FC = () => {
         <TabsContent key={item.device} value={item.device}>
           <Card>
             <CardHeader className='p-3'>
-              <CardTitle>Информаци о {item.name}</CardTitle>
+              <CardTitle>Информация по '{item.name}'</CardTitle>
             </CardHeader>
             <CardContent className="p-3">
               <div>
